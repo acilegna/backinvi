@@ -1,0 +1,15 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.valor {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#imag {
+    position: absolute;
+
+    bottom: 0;
+}
+#one {
+    color: rgb(111, 180, 20);
+}
