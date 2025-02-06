@@ -71,25 +71,16 @@ class ImportController extends Controller
     }
     public function getUrl()
     {
-        //ejemplo
-        // $urls = 'http://127.0.0.1:8000/?value=26';
         request()->fullUrl();
         $id = request()->query('value');
 
         session(['mi_variable' => $id]);
     }
 
-    public function  confirmar(Request $request)
+    public function  confirmar()
     {
-        // $this->getUrl();
-        //$valor = session('mi_variable');
-        // $id = $this->getUrl();
-        // var_dump($this->valor);
-
-        $valor = session('mi_variable');
-
-
-        Invitado::updateStatus($valor);
+        $id = $this->valor;
+        Invitado::updateStatus($id);
     }
 
 
