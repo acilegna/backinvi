@@ -10,17 +10,21 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Invitado;
 
 use App\Services\UltraMsgService;
+use Livewire\Component;
 
+use function Laravel\Prompts\alert;
 
 class ImportController extends Controller
 {
 
-
+    public $valor;
     protected $ultraMsgService;
 
     public function __construct(UltraMsgService $ultraMsgService)
     {
         $this->ultraMsgService = $ultraMsgService;
+
+        $this->valor = session('mi_variable');
     }
 
     public function sendMessage2(Request $request)
@@ -36,24 +40,28 @@ class ImportController extends Controller
         return response()->json($response);
     }
 
+
+    public function linkInvitation()
+    {
+        $url = 'https://invitations-khaki.vercel.app/';
+        $param = '?value=';
+        $link = $url . $param;
+        return $link;
+    }
     public function sendMessage()
     {
         $datoInvitado = Invitado::datosInvitado();
-        $link = 'https://invitations-khaki.vercel.app/';
 
 
         foreach ($datoInvitado  as $datos) {
             $id = $datos['id'];
             $phone = $datos['telefono'];
-            var_dump($phone);
+            $link = $this->linkInvitation();
 
-            $mesa = $link . "?val=" . $id;
-            $response = $this->ultraMsgService->sendMessage($phone, $mesa);
+            $mesage = $link . $id;
+            $response = $this->ultraMsgService->sendMessage($phone,  $mesage);
         }
         return response()->json($response);
-        /*  $response = $this->ultraMsgService->sendMessage($pone, $mesa);
-
-        return response()->json($response); */
     }
 
 
@@ -61,19 +69,34 @@ class ImportController extends Controller
     {
         return view('importar');
     }
+    public function getUrl()
+    {
+        //ejemplo
+        // $urls = 'http://127.0.0.1:8000/?value=26';
+        request()->fullUrl();
+        $id = request()->query('value');
+
+        session(['mi_variable' => $id]);
+    }
+
+    public function  confirmar(Request $request)
+    {
+        // $this->getUrl();
+        //$valor = session('mi_variable');
+        // $id = $this->getUrl();
+        // var_dump($this->valor);
+
+        $valor = session('mi_variable');
+
+
+        Invitado::updateStatus($valor);
+    }
 
 
     public function  showInvitado()
     {
 
         return view('invitados');
-        //http://127.0.0.1:8000/?id=49
-        /*   $url = request()->fullUrl();
-        var_dump($url);
-
-
-        $valor = request()->query('id');
-        var_dump($valor); */
     }
 
     //Importar a BD
@@ -88,17 +111,4 @@ class ImportController extends Controller
         //return back()->with('success', 'Archivo importado correctamente.');
         return response()->json(['message' => 'Archivo importado exitosamente'], 200);
     }
-
-
-    public function  idInvita(Request $request)
-    {
-        $idInvitado = Invitado::idInvitado();
-        foreach ($idInvitado as $id) {
-            $url = 'https://invitations-khaki.vercel.app';
-            $valor = $url . "?value=" . $id;
-
-            var_dump($valor);
-        }
-    }
-    public function  confirmar(Request $request) {}
 }

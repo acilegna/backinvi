@@ -9,10 +9,11 @@ use App\Http\Controllers\ImportController;
 
 Route::get('/importar', [ImportController::class, 'showForm']);
 Route::post('/importar', [ImportController::class, 'import'])->name('import');
-Route::get('/resultado', [ImportController::class, 'idInvita']);
+
 Route::get('/', [ImportController::class, 'showInvitado']);
 
 
+Route::get('/ejecutar-funcion', [ImportController::class, 'confirmar'])->name('ejecutar.funcion');
 
 Route::get('/send-message', function () {
     return view('send-message');

@@ -21,10 +21,7 @@ class Invitado extends Model
 
     ];
 
-    public static function idInvitado()
-    {
-        return self::pluck('id');
-    }
+
     public static function datosInvitado()
     {
 
@@ -34,6 +31,6 @@ class Invitado extends Model
     public static function updateStatus($id)
     {
 
-        return self::where('id', '=', $id)->update(['status' => 'si']);
+        return self::where('id', '=', $id)->update(['status' => 'Si']);
     }
 }
