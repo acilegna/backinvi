@@ -18,19 +18,22 @@ class Invitado extends Model
         'email',
         'telefono',
         'status',
-
     ];
 
 
     public static function datosInvitado()
     {
-
         return self::get(['id', 'telefono']);
     }
 
     public static function updateStatus($id)
     {
-
         return self::where('id', '=', $id)->update(['status' => 'Si']);
+    }
+
+    
+    public static function statusInvitado($id)
+    {
+        return self::where('id', $id)->value('status');
     }
 }

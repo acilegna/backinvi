@@ -17,14 +17,12 @@ use function Laravel\Prompts\alert;
 class ImportController extends Controller
 {
 
-    public $valor;
+    // public $valor;
     protected $ultraMsgService;
 
     public function __construct(UltraMsgService $ultraMsgService)
     {
         $this->ultraMsgService = $ultraMsgService;
-
-        $this->valor = session('mi_variable');
     }
 
     public function sendMessage2(Request $request)
@@ -50,6 +48,8 @@ class ImportController extends Controller
     }
     public function sendMessage()
     {
+
+
         $datoInvitado = Invitado::datosInvitado();
 
 
@@ -65,28 +65,40 @@ class ImportController extends Controller
     }
 
 
-    public function showForm()
+    public function formImportar()
     {
         return view('importar');
     }
     public function getUrl()
     {
+        //ejemplo
+        // $urls = 'http://127.0.0.1:8000/?value=26';
         request()->fullUrl();
         $id = request()->query('value');
-
         session(['mi_variable' => $id]);
     }
 
-    public function  confirmar()
+    public function  confirmar(Request $request)
     {
-        $id = $this->valor;
-        Invitado::updateStatus($id);
+
+
+        $idUrl = session('mi_variable');
+        $id = 27;
+        $statusInvitado = Invitado::statusInvitado($id);
+        var_dump($statusInvitado);
+        if ($statusInvitado == 'No') {
+            Invitado::updateStatus($idUrl);
+            return redirect()->route("invitado")->with("success", "Gracias por su confirmación!");
+        } else {
+
+            return redirect()->route("invitado")->with("error", "Su confirmación ya se encuentra registrada!");
+        }
     }
 
 
     public function  showInvitado()
     {
-
+        $this->getUrl();
         return view('invitados');
     }
 

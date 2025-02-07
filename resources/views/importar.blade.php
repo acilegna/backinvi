@@ -4,19 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @vite('resources/css/app.css')
     <title>Importar CSV</title>
 </head>
 
 <body>
-    <h1>Subir Archivo CSV</h1>
-    {{--   @if (session('success'))
-        <p style="color: green;">{{ session('success') }}</p>
-    @endif --}}
-    <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file" required>
-        <button type="submit">Importar</button>
-    </form>
+    <div class="container-fluid">
+        <h1 class="text-center title-upload">Subir Archivo</h1>
+
+        <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+                <div class="col-10"><input type="file" class="form-control" name="file" required></div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Importar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

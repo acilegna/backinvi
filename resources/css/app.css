@@ -11,5 +11,19 @@
     bottom: 0;
 }
 #one {
-    color: rgb(6, 170, 135);
+    color: rgb(196, 117, 14);
+}
+
+.title-upload {
+    color: rgb(53, 53, 53);
+    font-size: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+#btn-envia {
+    display: block;
+    padding: 0.5rem 1rem;
+    width: 200px;
+    margin: 0 auto;
 }

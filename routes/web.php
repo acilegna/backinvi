@@ -3,20 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
 
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
-
-Route::get('/importar', [ImportController::class, 'showForm']);
+//rutas importar archivo
+Route::get('/importar', [ImportController::class, 'formImportar']);
 Route::post('/importar', [ImportController::class, 'import'])->name('import');
 
-Route::get('/', [ImportController::class, 'showInvitado']);
+//ruta mostrar invitacion
+ Route::get('/', [ImportController::class, 'showInvitado'])->name('invitado');
 
 
-Route::get('/ejecutar-funcion', [ImportController::class, 'confirmar'])->name('ejecutar.funcion');
+//ruta enviar confirmacion de asistencia
+Route::get('/sendConfirmation', [ImportController::class, 'confirmar'])->name('change.status');
 
+//ruta mostrar vista enviar mensaje
 Route::get('/send-message', function () {
     return view('send-message');
 });
 
+
+//ruta enviar mensaje
 Route::post('/send-whatsapp', [ImportController::class, 'sendMessage'])->name('send.whatsapp');

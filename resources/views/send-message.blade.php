@@ -5,20 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enviar Mensaje</title>
+    {{-- Cargar CSS con Vite --}}
+    @vite('resources/css/app.css')
 </head>
 
 <body>
-    <h2>Enviar Mensaje por WhatsApp</h2>
-    <form action="{{ route('send.whatsapp') }}" method="POST">
-        @csrf
-        {{--  <label for="phone">Número:</label>
-        <input type="text" name="phone" required>
-        <br>
-        <label for="message">Mensaje:</label>
-        <textarea name="message" required></textarea>
-        <br> --}}
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="container-fluid">
+        <h2 class="text-center title-upload">Enviar Invitación</h2>
+        <form action="{{ route('send.whatsapp') }}" method="POST">
+            @csrf
+            <div class="col-4 row" id="btn-envia">
+                <button type="submit" class="btn btn-outline-success"> Enviar</button>
+            </div>
+
+        </form>
+
+
+
+    </div>
 
 </body>
 
