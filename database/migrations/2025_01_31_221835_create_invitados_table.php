@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('email');
             $table->string('telefono');
+            $table->integer('pases');
+            $table->integer('confirmados')->default(0);
             $table->string('status')->default('No');
             $table->timestamps(); // Crea created_at y updated_at
         });

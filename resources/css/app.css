@@ -27,3 +27,48 @@
     width: 200px;
     margin: 0 auto;
 }
+
+.mensaje {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 1;
+    animation: desaparecer 10s forwards;
+}
+.mensaje.exito {
+    background-color: lightgreen;
+    color: green;
+}
+.mensaje.error {
+    background-color: lightcoral;
+    color: white;
+}
+@keyframes desaparecer {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.txt-title {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.cont {
+    margin-top: 5px;
+    background-color: rgb(235, 235, 235);
+    border-style: outset;
+    border-color: rgb(240, 240, 240);
+    height: 150px;
+}
+.txt-title {
+    text-align: center;
+}
+
+#margin {
+    margin-top: -170px;
+}
+
+ 

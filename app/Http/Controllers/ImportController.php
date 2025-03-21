@@ -25,6 +25,14 @@ class ImportController extends Controller
         $this->ultraMsgService = $ultraMsgService;
     }
 
+
+
+    public function pruebas(){
+        $datoInvitados = Invitado::totalInvitados();
+        var_dump($datoInvitados);
+        $datoConfir = Invitado::totalConfirmados();
+        var_dump($datoConfir);
+    }
     public function sendMessage2(Request $request)
     {
         $request->validate([
@@ -83,15 +91,16 @@ class ImportController extends Controller
 
 
         $idUrl = session('mi_variable');
-        $id = 27;
-        $statusInvitado = Invitado::statusInvitado($id);
-        var_dump($statusInvitado);
+        $statusInvitado = Invitado::statusInvitado($idUrl);
         if ($statusInvitado == 'No') {
-            Invitado::updateStatus($idUrl);
-            return redirect()->route("invitado")->with("success", "Gracias por su confirmación!");
-        } else {
 
-            return redirect()->route("invitado")->with("error", "Su confirmación ya se encuentra registrada!");
+            Invitado::updateStatus($idUrl);
+
+            return response()->json(['mensaje' => "Gracias por su confirmación"]);
+        } elseif ($statusInvitado == 'Si') {
+            return response()->json(['mensaje' => "Su confirmación ya se encuentra registrada!"]);
+        } else {
+            return response()->json(['mensaje' => "ocurrio un error"]);
         }
     }
 

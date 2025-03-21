@@ -17,12 +17,15 @@ class Invitado extends Model
         'apellido',
         'email',
         'telefono',
+        'pases',
+        'confirmados',
         'status',
     ];
 
 
     public static function datosInvitado()
     {
+        //self se refiere a la propia clase del modelo donde está definida la función.
         return self::get(['id', 'telefono']);
     }
 
@@ -31,9 +34,23 @@ class Invitado extends Model
         return self::where('id', '=', $id)->update(['status' => 'Si']);
     }
 
-    
     public static function statusInvitado($id)
     {
         return self::where('id', $id)->value('status');
     }
+
+    public static function vistaInvitado()
+    {
+        return self::get(['name', 'apellido', 'status']);
+    }
+    
+    public static function totalInvitados()
+    {
+        return self::sum('pases');
+    }
+    public static function totalConfirmados()
+    {
+        return self::sum('confirmados');
+    }
+
 }

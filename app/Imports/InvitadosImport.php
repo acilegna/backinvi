@@ -23,6 +23,7 @@ class InvitadosImport implements ToModel, WithHeadingRow
             'apellido'    => $row['apellido'],
             'email'    => $row['email'],
             'telefono'     => $row['telefono'],
+            'pases'     => $row['pases'],
             'status'     => $row['status'],
 
         ]);

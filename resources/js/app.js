@@ -2,6 +2,6 @@ import "./bootstrap";
 
 setTimeout(function () {
     document
-        .querySelectorAll(".alert")
+        .querySelectorAll(".respuesta")
         .forEach((alert) => (alert.style.display = "none"));
-}, 3000); // 3 segundos
+}, 5000); // 3 segundos
