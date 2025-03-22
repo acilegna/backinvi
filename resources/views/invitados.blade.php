@@ -15,7 +15,7 @@
 
 
 
-        <h1 class="text-center" id="one">pruebas</h1>
+        <h1 class="text-center" id="one">pruebasss</h1>
 
 
         {{--      Usamos AJAX   para hacer la llamada sin recargar la página. --}}
