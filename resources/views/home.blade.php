@@ -5,12 +5,16 @@
             <div class="col-6  cont-title">
                 <div class="cont">
                     <h1 class="txt-title">Total Invitados</h1>
+                    <span>{{ $datos['invitados']}}</span>
+                  
                 </div>
 
             </div>
             <div class="col-6 cont-title">
                 <div class="cont">
                     <h2 class="txt-title">Confirmados</h2>
+                    <span>{{ $datos['confirmados']}}</span>
+                    
                 </div>
             </div>
         </div>
@@ -18,6 +22,7 @@
             <div class="col-6   cont-title">
                 <div class="cont">
                     <h3 class="txt-title">Pendientes</h3>
+                    <span>{{ $datos['pendientes']}}</span>
                 </div>
             </div>
             <div class="col-6   cont-title">

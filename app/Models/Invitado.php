@@ -43,7 +43,7 @@ class Invitado extends Model
     {
         return self::get(['name', 'apellido', 'status']);
     }
-    
+
     public static function totalInvitados()
     {
         return self::sum('pases');
@@ -52,5 +52,10 @@ class Invitado extends Model
     {
         return self::sum('confirmados');
     }
+    public static function pasesById($idUrl) {
+       
+        return self::where('id', $idUrl)->value('pases');
+        
 
+    }
 }

@@ -17,7 +17,7 @@ use function Laravel\Prompts\alert;
 class ImportController extends Controller
 {
 
-    // public $valor;
+
     protected $ultraMsgService;
 
     public function __construct(UltraMsgService $ultraMsgService)
@@ -27,12 +27,29 @@ class ImportController extends Controller
 
 
 
-    public function pruebas(){
-        $datoInvitados = Invitado::totalInvitados();
-        var_dump($datoInvitados);
-        $datoConfir = Invitado::totalConfirmados();
-        var_dump($datoConfir);
+    public function pruebas()
+    {
+        $idUrl = session('mi_variable');
+        $pases= Invitado::pasesById($idUrl);
+        var_dump($pases);
+      
+       /*   $Invitados = Invitado::totalInvitados();
+        $Confirmados = Invitado::totalConfirmados();
+        $Pendientes = $Invitados - $Confirmados;
+        $datos = [
+            'invitados' =>  $Invitados,
+            'confirmados' =>  $Confirmados,
+            'pendientes' =>  $Pendientes
+        ];
+        return view('home')->with('datos', $datos);  */
     }
+    public function detalles( )
+    {
+        $idUrl = session('mi_variable');
+       $pases= Invitado::pasesById($idUrl);
+        return response()->json($pases); // Retorna JSON
+    }
+
     public function sendMessage2(Request $request)
     {
         $request->validate([
@@ -54,13 +71,10 @@ class ImportController extends Controller
         $link = $url . $param;
         return $link;
     }
+
     public function sendMessage()
     {
-
-
         $datoInvitado = Invitado::datosInvitado();
-
-
         foreach ($datoInvitado  as $datos) {
             $id = $datos['id'];
             $phone = $datos['telefono'];
@@ -77,6 +91,7 @@ class ImportController extends Controller
     {
         return view('importar');
     }
+
     public function getUrl()
     {
         //ejemplo
@@ -88,7 +103,6 @@ class ImportController extends Controller
 
     public function  confirmar(Request $request)
     {
-
 
         $idUrl = session('mi_variable');
         $statusInvitado = Invitado::statusInvitado($idUrl);
@@ -104,6 +118,12 @@ class ImportController extends Controller
         }
     }
 
+    public function enviaDtos(){
+        //obtener la id del invitado
+        $idUrl = session('mi_variable');
+        Invitado::pasesById($idUrl);
+        
+    }
 
     public function  showInvitado()
     {

@@ -27,3 +27,5 @@ Route::get('/send-message', function () {
 
 //ruta enviar mensaje
 Route::post('/send-whatsapp', [ImportController::class, 'sendMessage'])->name('send.whatsapp');
+
+Route::get('/detalles', [ImportController::class, 'detalles'])->name('detalle');
