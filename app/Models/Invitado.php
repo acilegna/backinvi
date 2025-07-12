@@ -13,14 +13,22 @@ class Invitado extends Model
 
     protected $fillable =
     [
+        'id_familia',
         'name',
         'apellido',
-        'email',
         'telefono',
-        'pases',
-        'confirmados',
+        'categoria',
         'status',
     ];
+
+    public static function totalAdultos(){
+        return self::where('categoria','adulto')->count();
+      
+    }
+    public static function totalNiños(){
+        return self::where('categoria','niño')->count();
+      
+    }
 
 
     public static function datosInvitado()

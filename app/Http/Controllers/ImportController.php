@@ -29,9 +29,11 @@ class ImportController extends Controller
 
     public function pruebas()
     {
-        $idUrl = session('mi_variable');
-        $pases= Invitado::pasesById($idUrl);
+        $pases= Invitado::totalAdultos();
         var_dump($pases);
+       /*  $idUrl = session('mi_variable');
+        $pases= Invitado::pasesById($idUrl);
+        var_dump($pases); */
       
        /*   $Invitados = Invitado::totalInvitados();
         $Confirmados = Invitado::totalConfirmados();

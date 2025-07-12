@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('invitados', function (Blueprint $table) {
             $table->id(); // Crea un campo id autoincremental
+            $table->string('id_familia');
+            /*  $table->string('id_familia')->default('2R0N8');;  */
+            /* $table->integer('id_familia')->default(1);;  */
             $table->string('name');
             $table->string('apellido');
-            $table->string('email');
-            $table->string('telefono');
-            $table->integer('pases');
-            $table->integer('confirmados')->default(0);
-            $table->string('status')->default('No');
+           // $table->string('telefono')->nullable();
+            $table->string('telefono')->unique();
+            $table->string('categoria')->default('Pendiente');
+            $table->string('status')->default('Pendiente');
             $table->timestamps(); // Crea created_at y updated_at
         });
     }
