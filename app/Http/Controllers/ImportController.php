@@ -29,13 +29,13 @@ class ImportController extends Controller
 
     public function pruebas()
     {
-        $pases= Invitado::totalAdultos();
+        $pases = Invitado::totalAdultos();
         var_dump($pases);
-       /*  $idUrl = session('mi_variable');
+        /*  $idUrl = session('mi_variable');
         $pases= Invitado::pasesById($idUrl);
         var_dump($pases); */
-      
-       /*   $Invitados = Invitado::totalInvitados();
+
+        /*   $Invitados = Invitado::totalInvitados();
         $Confirmados = Invitado::totalConfirmados();
         $Pendientes = $Invitados - $Confirmados;
         $datos = [
@@ -45,10 +45,10 @@ class ImportController extends Controller
         ];
         return view('home')->with('datos', $datos);  */
     }
-    public function detalles( )
+    public function detalles()
     {
         $idUrl = session('mi_variable');
-       $pases= Invitado::pasesById($idUrl);
+        $pases = Invitado::pasesById($idUrl);
         return response()->json($pases); // Retorna JSON
     }
 
@@ -120,11 +120,11 @@ class ImportController extends Controller
         }
     }
 
-    public function enviaDtos(){
+    public function enviaDtos()
+    {
         //obtener la id del invitado
         $idUrl = session('mi_variable');
         Invitado::pasesById($idUrl);
-        
     }
 
     public function  showInvitado()
@@ -141,7 +141,6 @@ class ImportController extends Controller
         ]);
 
         Excel::import(new InvitadosImport, $request->file('file'));
-
         //return back()->with('success', 'Archivo importado correctamente.');
         return response()->json(['message' => 'Archivo importado exitosamente'], 200);
     }
