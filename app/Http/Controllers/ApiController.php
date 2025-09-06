@@ -188,10 +188,6 @@ class ApiController extends Controller
         return response()->json(['total' => $adulto], 200);
     }
 
-
-
-
-
     public function totalAdultoById()
     {
         $adultoId = Invitado::where('categoria', 'adulto')->where('id_familia', '1')->count();
