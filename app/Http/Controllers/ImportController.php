@@ -64,8 +64,7 @@ class ImportController extends Controller
 
         return response()->json($response);
     }
-
-
+/**comentario */
     public function linkInvitation()
     {
         $url = 'https://invitations-khaki.vercel.app/';
