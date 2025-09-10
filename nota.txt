@@ -1,0 +1,8 @@
+datos para coneexion a c panel 
+DB_CONNECTION=mysql
+DB_HOST=svgt256.serverneubox.com.mx
+DB_PORT=3306
+DB_DATABASE=ladoobsc_evento
+DB_USERNAME=ladoobsc_pventa
+DB_PASSWORD=px-v3nt4s  
+ 
