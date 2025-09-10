@@ -6,3 +6,7 @@ DB_DATABASE=ladoobsc_evento
 DB_USERNAME=ladoobsc_pventa
 DB_PASSWORD=px-v3nt4s  
  
+
+ Remote Database Access
+
+ agregar ip, la ip me la marco en el error al consultar la api en la terminal entonces la agregue
