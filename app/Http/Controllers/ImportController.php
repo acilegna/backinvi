@@ -121,7 +121,7 @@ class ImportController extends Controller
 
     public function enviaDtos()
     {
-        //obtener la id del invitado
+        //obtener la id del invitados
         $idUrl = session('mi_variable');
         Invitado::pasesById($idUrl);
     }
