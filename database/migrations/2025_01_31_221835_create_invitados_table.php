@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('apellido');
            // $table->string('telefono')->nullable();
             $table->string('telefono')->unique();
-            $table->string('categoria')->default('Pendiente');
+            $table->string('categoria');
             $table->string('status')->default('Pendiente');
             $table->timestamps(); // Crea created_at y updated_at
         });

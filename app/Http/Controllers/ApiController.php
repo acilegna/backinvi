@@ -1,23 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
 //use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
-
 use App\Models\Invitado;
 use Illuminate\Support\Facades\Validator;
-
 use App\Imports\InvitadosImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 
-//use App\Http\Requests\InvitadoRequest;
-
-
 class ApiController extends Controller
 {
-    // Obtener todos los invitado s
+
+
+    // Obtener todos los invitado 
     public function index()
     {
         return response()->json(Invitado::all(), 200);
@@ -93,9 +89,6 @@ class ApiController extends Controller
         return response()->json(['mensaje' => "Registro actualizado", 'info' => $invitado], 200);
     }
 
-
-
-
     // Mostrar un invitado por ID
     public function show($id)
     {
@@ -117,75 +110,54 @@ class ApiController extends Controller
     }
     // fin crud
 
-    public function confirmados()
+
+
+
+    //prueba no se ha usado
+    public function resumen()
     {
         $confirmados = Invitado::where('status', 'Si')->count();
-        return response()->json(['total_confirmados' => $confirmados], 200);
-    }
-    public function ausentes()
-    {
-        $confirmados = Invitado::where('status', 'No')->count();
-        return response()->json(['total_ausentes' => $confirmados], 200);
-    }
-
-    public function totalInvitados()
-    {
+        $no = Invitado::where('status', 'No')->count();
         $total = Invitado::all()->count();
-        return response()->json(['total' => $total], 200);
-    }
-
-    public function pendientes()
-    {
         $pendientes = Invitado::where('status', 'Pendiente')->count();
-        return response()->json(['pendientes' => $pendientes], 200);
-    }
-
-    public function totalNiños()
-    {
         $niños = Invitado::where('categoria', 'Niño')->count();
-        return response()->json(['total' => $niños], 200);
-    }
-
-    public function totalAdulto()
-    {
         $adulto = Invitado::where('categoria', 'Adulto')->count();
-        return response()->json(['totalAdultos' => $adulto], 200);
-    }
-    public function niñosAusentes()
-    {
-        $niños = Invitado::where('categoria', 'Niño')->where('status', 'No')->count();
-        return response()->json(['total' => $niños], 200);
-    }
+        $niñoAusente = Invitado::where('categoria', 'Niño')->where('status', 'No')->count();
+        $adultoAusente = Invitado::where('categoria', 'Adulto')->where('status', 'No')->count();
+        $niñoP = Invitado::where('categoria', 'Niño')->where('status', 'Pendiente')->count();
+        $adultoPendiente = Invitado::where('categoria', 'Adulto')->where('status', 'Pendiente')->count();
+        $niñoConfirmado = Invitado::where('categoria', 'Niño')->where('status', 'Si')->count();
+        $adultoConfirmado = Invitado::where('categoria', 'Adulto')->where('status', 'Si')->count();
 
-    public function adultosAusentes()
-    {
-        $adulto = Invitado::where('categoria', 'Adulto')->where('status', 'No')->count();
-        return response()->json(['total' => $adulto], 200);
-    }
-
-    public function niñosConfirmados()
-    {
-        $niños = Invitado::where('categoria', 'Niño')->where('status', 'Si')->count();
-        return response()->json(['total' => $niños], 200);
-    }
-
-    public function adultosConfirmados()
-    {
-        $adulto = Invitado::where('categoria', 'Adulto')->where('status', 'Si')->count();
-        return response()->json(['total' => $adulto], 200);
+        return response()->json([
+            'total_confirmados' => $confirmados,
+            'total_ausentes' => $no,
+            'todos' => $total,
+            'pendientes' => $pendientes,
+            'total_niño' => $niños,
+            'totalAdultos' => $adulto,
+            'niño_ausente' => $niñoAusente,
+            'adulto_ausente' => $adultoAusente,
+            'niño_pendiente' => $niñoP,
+            'adultos_pendiente' => $adultoPendiente,
+            'total_niño_confirmado' =>  $niñoConfirmado,
+            'total_adulto_confirmado' =>  $adultoConfirmado,
+        ], 200);
     }
 
-
-    public function niñosPendientes()
+ 
+    public function filter($valor)
     {
-        $niños = Invitado::where('categoria', 'Niño')->where('status', 'Pendiente')->count();
-        return response()->json(['total' => $niños], 200);
-    }
+       
+        $invitado = Invitado::where('id_familia', $valor)
+            ->orWhere('name', 'LIKE', "%$valor%")
+            ->get();
 
-    public function adultosPendientes()
-    {
-        $adulto = Invitado::where('categoria', 'Adulto')->where('status', 'Pendiente')->count();
-        return response()->json(['total' => $adulto], 200);
+        if ($invitado->isEmpty()) {
+            return response()->json(['error' => 'Registro no encontrado'], 404);
+        }
+
+        return response()->json($invitado, 200);  
     }
 
     public function totalAdultoById()
@@ -215,9 +187,9 @@ class ApiController extends Controller
     }
 
 
-
     public function import(Request $request)
     {
+
         $request->validate([
             'file' => 'required|mimes:xlsx,csv,xls'
         ]);
@@ -242,7 +214,8 @@ class ApiController extends Controller
         if ($todos->isEmpty()) {
             return response()->json([
                 'success' => false,
-                'error' => 'Registro no encontrado'], 404);
+                'error' => 'Registro no encontrado'
+            ], 404);
         }
 
         // Filtrar los pendientes
@@ -260,18 +233,6 @@ class ApiController extends Controller
         return response()->json([
             'success' => false,
             'error' => 'Los invitados ya han sido confirmados',
-        ], 409); 
+        ], 409);
     }
-
-
-   
-
-    /*        public function show($id)
-    {
-        $invitado = Invitado::find($id);
-        if (!$invitado) {
-            return response()->json(['error' => 'Registro no encontrado'], 404);
-        }
-        return response()->json($invitado, 200);
-    } */
 }

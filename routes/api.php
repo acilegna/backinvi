@@ -18,10 +18,21 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('invitados', ApiController::class);
 
 Route::middleware('api')->group(function () {
+
+
+
+
     Route::get('/test', function () {
         return response()->json(['message' => 'APIs funcionando']);
     });
     Route::post('/send-whatsapp', [ImportController::class, 'sendMessage']);
+
+    //resumen
+    Route::get('resumen', [ApiController::class, 'resumen']);
+    
+     Route::get('filters/{valor}', [ApiController::class, 'filter']);
+    
+
     // confirmados
     Route::get('asistiran', [ApiController::class, 'confirmados']);
 
@@ -61,9 +72,6 @@ Route::middleware('api')->group(function () {
     Route::put('update/{id}', [ApiController::class, 'updateStatus']);
 
     Route::post('/import', [ApiController::class, 'import']);
- 
+
     Route::get('byFamily/{id}', [ApiController::class, 'byFamily']);
-
-  
-
 });

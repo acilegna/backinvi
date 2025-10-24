@@ -22,7 +22,7 @@ class InvitadosImport implements ToModel, WithHeadingRow, WithValidation
     {
         return new Invitado([
 
-            'id_familia'     => $row['idfamilia'],
+            'id_familia'     => $row['id_familia'],
             'name'     => $row['name'],
             'apellido'    => $row['apellido'],
             'telefono'     => $row['telefono'],
@@ -37,7 +37,7 @@ class InvitadosImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'idfamilia' => 'required',
+            'id_familia' => 'required',
             'name' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'telefono' => 'required|max:20|unique:invitados,telefono',
@@ -49,7 +49,7 @@ class InvitadosImport implements ToModel, WithHeadingRow, WithValidation
     public function customValidationMessages()
     {
         return [
-            'idfamilia.required' => 'Id familia es obligatorio.',
+            'id_familia.required' => 'El id familia es obligatorio.',
             'name.required' => 'El nombre es obligatorio.',
             'apellido.required' => 'El apellido es obligatorio.',
             'telefono.required' => 'El teléfono es obligatorio.',
