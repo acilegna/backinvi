@@ -29,9 +29,9 @@ Route::middleware('api')->group(function () {
 
     //resumen
     Route::get('resumen', [ApiController::class, 'resumen']);
-    
-     Route::get('filters/{valor}', [ApiController::class, 'filter']);
-    
+
+    Route::get('filter/{valor}', [ApiController::class, 'filter']);
+
 
     // confirmados
     Route::get('asistiran', [ApiController::class, 'confirmados']);

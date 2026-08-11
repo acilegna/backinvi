@@ -151,6 +151,7 @@ class ApiController extends Controller
        
         $invitado = Invitado::where('id_familia', $valor)
             ->orWhere('name', 'LIKE', "%$valor%")
+              ->orWhere('categoria', 'LIKE', "%$valor%")  
             ->get();
 
         if ($invitado->isEmpty()) {
